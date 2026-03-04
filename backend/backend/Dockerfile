@@ -10,5 +10,5 @@ FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-# Limitamos la memoria a 350MB para evitar que Railway (plan gratuito/starter) mate el proceso por OOM
-ENTRYPOINT ["java", "-Xmx350m", "-jar", "app.jar"]
+# Limitamos memoria (-Xmx350m) y forzamos IPv4 (-Djava.net.preferIPv4Stack=true) para evitar errores de red en Supabase
+ENTRYPOINT ["java", "-Xmx350m", "-Djava.net.preferIPv4Stack=true", "-jar", "app.jar"]
