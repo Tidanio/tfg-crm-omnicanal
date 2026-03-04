@@ -9,8 +9,8 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
-# Railway asigna un puerto dinámico en la variable $PORT. Debemos usarlo.
 ENV PORT=8080
 EXPOSE $PORT
-# Usamos -Dserver.port=$PORT para que Spring Boot escuche en el puerto correcto de Railway
-ENTRYPOINT ["java", "-Xmx350m", "-Djava.net.preferIPv4Stack=true", "-Dserver.port=${PORT}", "-jar", "app.jar"]
+# FIX IMPORTANTE: Usamos "sh -c" para que la variable ${PORT} se lea correctamente.
+# Antes fallaba porque en modo ["java", ...] no se leen variables de entorno.
+ENTRYPOINT ["sh", "-c", "java -XX:MaxRAMPercentage=75.0 -Djava.net.preferIPv4Stack=true -Dserver.port=${PORT} -jar app.jar"]
