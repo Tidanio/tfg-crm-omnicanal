@@ -9,5 +9,5 @@ export type Contact = {
 };
 
 export async function getContacts(): Promise<Contact[]> {
-  return api.get<Contact[]>('/dev/contacts');
+  return api.get<Contact[]>('/dev/messages/contacts');
 }
