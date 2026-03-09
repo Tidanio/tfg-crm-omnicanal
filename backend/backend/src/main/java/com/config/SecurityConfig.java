@@ -24,7 +24,8 @@ public class SecurityConfig {
       .csrf(csrf -> csrf.disable())
       .authorizeHttpRequests(auth -> auth
         .requestMatchers("/h2-console/**").permitAll()
-        .requestMatchers("/dev/**", "/webhooks/**").authenticated()
+        .requestMatchers("/webhooks/**").permitAll() // Webhooks must be public for Meta
+        .requestMatchers("/dev/**").authenticated()
         .anyRequest().permitAll()
       )
       .headers(h -> h.frameOptions(f -> f.disable()))
