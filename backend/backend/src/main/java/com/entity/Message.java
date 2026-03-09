@@ -129,6 +129,10 @@ public class Message {
     this.status = status;
   }
 
+  public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
   public LocalDateTime getCreatedAt() {
     return createdAt;
   }

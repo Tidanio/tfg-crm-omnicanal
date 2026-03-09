@@ -98,7 +98,8 @@ public class StartupSeeder {
     // Crear conversación
     Conversation conv = new Conversation();
     conv.setContact(contact);
-    conv.setInbox(inbox);
+    conv.setInbox(inbox); // Asignamos el Inbox
+    conv.setChannel(inbox.getChannelType());
     conv.setStatus(ConversationStatus.OPEN);
     conv = convRepo.save(conv);
 

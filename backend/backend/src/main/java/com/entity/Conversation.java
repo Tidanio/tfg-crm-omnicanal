@@ -13,6 +13,10 @@ public class Conversation {
   @JoinColumn(name = "contact_id")
   private Contact contact;
 
+  @ManyToOne
+  @JoinColumn(name = "inbox_id")
+  private Inbox inbox;
+
   @Enumerated(EnumType.STRING)
   private ConversationStatus status = ConversationStatus.OPEN;
 
@@ -25,6 +29,8 @@ public class Conversation {
   public void setId(Long id) { this.id = id; }
   public Contact getContact() { return contact; }
   public void setContact(Contact contact) { this.contact = contact; }
+  public Inbox getInbox() { return inbox; }
+  public void setInbox(Inbox inbox) { this.inbox = inbox; }
   public ConversationStatus getStatus() { return status; }
   public void setStatus(ConversationStatus status) { this.status = status; }
   public ChannelType getChannel() { return channel; }
