@@ -17,7 +17,7 @@ services:
       - key: DB_NAME
         fromDatabase:
           name: tfg-crm-db
-          property: databaseName
+          property: database
       - key: DB_USER
         fromDatabase:
           name: tfg-crm-db
