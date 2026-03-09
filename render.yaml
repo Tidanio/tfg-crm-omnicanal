@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: tfg-crm-backend
+    env: docker
+    plan: free
+    dockerContext: backend/backend
+    dockerfilePath: backend/backend/Dockerfile
+    envVars:
+      - key: DB_URL
+        fromDatabase:
+          name: tfg-crm-db
+          property: connectionString
+      - key: DB_USER
+        fromDatabase:
+          name: tfg-crm-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: tfg-crm-db
+          property: password
+      - key: DB_DRIVER
+        value: org.postgresql.Driver
+      - key: DB_DIALECT
+        value: org.hibernate.dialect.PostgreSQLDialect
+      - key: PORT
+        value: 10000
+
+databases:
+  - name: tfg-crm-db
+    plan: free
+    databaseName: crmdb
+    user: crmuser
+
+version: "1"
