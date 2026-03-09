@@ -12,5 +12,5 @@ COPY --from=build /app/target/*.jar app.jar
 ENV PORT=8080
 EXPOSE $PORT
 # FIX IMPORTANTE: Usamos "sh -c" para que la variable ${PORT} se lea correctamente.
-# Antes fallaba porque en modo ["java", ...] no se leen variables de entorno.
-ENTRYPOINT ["sh", "-c", "java -XX:MaxRAMPercentage=75.0 -Djava.net.preferIPv4Stack=true -Dserver.port=${PORT} -jar app.jar"]
+# También construimos la JDBC URL si estamos en Render (detectado por DB_HOST)
+ENTRYPOINT ["sh", "-c", "if [ -n \"$DB_HOST\" ]; then export DB_URL=jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}; fi && java -XX:MaxRAMPercentage=75.0 -Djava.net.preferIPv4Stack=true -Dserver.port=${PORT} -jar app.jar"]

@@ -6,10 +6,18 @@ services:
     dockerContext: backend/backend
     dockerfilePath: backend/backend/Dockerfile
     envVars:
-      - key: DB_URL
+      - key: DB_HOST
         fromDatabase:
           name: tfg-crm-db
-          property: connectionString
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: tfg-crm-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: tfg-crm-db
+          property: databaseName
       - key: DB_USER
         fromDatabase:
           name: tfg-crm-db
