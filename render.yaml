@@ -32,6 +32,10 @@ services:
         value: org.hibernate.dialect.PostgreSQLDialect
       - key: PORT
         value: 10000
+      - key: WHATSAPP_API_TOKEN
+        value: EAARdZA7ntlx8BQ9gVvTR91lfpDZCrcReqsKIShaqDxYVqZATflPl9lASgM73VZCPnVBNQTzAvu7b4PAG3lpR7bwXBsjYvBAf9Uq0aYU33CqZBiIum3nMZACjghAEZCXFO1ZB2sWdoH82eetf7Fn4ZCqwBznvo6fZCFSyRaIzsmrOUSMrZBNuoDvhwVZCniXwZCGssCGYPRkqXO07Qsw3RCf7elQ0KStjxIQFZBATMiraLJPBTqhQE60Xxv5OpKSbr3rOlQZBzxa3to6BenoErqHCpn1UIZCGXUjC
+      - key: WHATSAPP_PHONE_NUMBER_ID
+        value: 54641200506
 
 databases:
   - name: tfg-crm-db

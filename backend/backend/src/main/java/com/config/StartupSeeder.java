@@ -29,7 +29,7 @@ public class StartupSeeder {
       // Si ya hay conversaciones, no creamos más datos de prueba para evitar duplicados masivos
       if (conversationRepository.count() > 0) return;
 
-      // 2. Crear Contactos y Conversaciones (2 WhatsApp, 2 Instagram, 1 Email)
+      // 2. Crear Contactos y Conversaciones (Ampliación a 10 contactos)
 
       // Chat 1: WhatsApp - Cliente enfadado
       createConversation(contactRepository, conversationRepository, messageRepository, waInbox,
@@ -50,7 +50,25 @@ public class StartupSeeder {
               "OUTGOING: Sí, incluye soporte prioritario y acceso a todas las funciones."
           });
 
-      // Chat 3: Instagram - Influencer
+      // Chat 3: WhatsApp - Solicitud de factura
+      createConversation(contactRepository, conversationRepository, messageRepository, waInbox,
+          "Empresas SL", "555-0003", "facturacion@empresassl.com", null,
+          new String[]{
+              "INCOMING: Hola, necesitamos la factura del último mes.",
+              "OUTGOING: Por supuesto, ¿me confirmas el CIF?",
+              "INCOMING: B12345678"
+          });
+
+      // Chat 4: WhatsApp - Problema técnico
+      createConversation(contactRepository, conversationRepository, messageRepository, waInbox,
+          "David M.", "555-0004", null, null,
+          new String[]{
+              "INCOMING: La aplicación no me carga en el móvil.",
+              "OUTGOING: ¿Has probado a reiniciar?",
+              "INCOMING: Sí, sigue igual."
+          });
+
+      // Chat 5: Instagram - Influencer
       createConversation(contactRepository, conversationRepository, messageRepository, igInbox,
           "TechInfluencer_99", null, null, "tech_influencer",
           new String[]{
@@ -58,7 +76,7 @@ public class StartupSeeder {
               "OUTGOING: Hola! Gracias por contactarnos. Pásanos tu media kit y lo revisamos con marketing."
           });
 
-      // Chat 4: Instagram - Duda sobre envío
+      // Chat 6: Instagram - Duda sobre envío
       createConversation(contactRepository, conversationRepository, messageRepository, igInbox,
           "Laura_Style", null, null, "laura.style.official",
           new String[]{
@@ -66,12 +84,35 @@ public class StartupSeeder {
               "OUTGOING: Hola Laura, sí realizamos envíos a Canarias. El coste es de 15€."
           });
 
-      // Chat 5: Email - Soporte técnico
+      // Chat 7: Instagram - Stock agotado
+      createConversation(contactRepository, conversationRepository, messageRepository, igInbox,
+          "Carlos Gym", null, null, "carlos_fitness",
+          new String[]{
+              "INCOMING: ¿Cuándo reponéis las proteínas?",
+              "OUTGOING: Hola Carlos, esperamos recibir stock el martes que viene."
+          });
+
+      // Chat 8: Email - Soporte técnico
       createConversation(contactRepository, conversationRepository, messageRepository, emInbox,
           "Carlos Ruiz", null, "carlos.ruiz@example.com", null,
           new String[]{
               "INCOMING: Asunto: Error en la factura de marzo\n\nHola, he recibido un cargo incorrecto en mi última factura. Adjunto el PDF.",
               "OUTGOING: Estimado Carlos,\n\nGracias por contactar con soporte. Vamos a revisar tu caso inmediatamente."
+          });
+
+      // Chat 9: Email - Propuesta comercial
+      createConversation(contactRepository, conversationRepository, messageRepository, emInbox,
+          "Marketing Digital", null, "hola@marketing.com", null,
+          new String[]{
+              "INCOMING: Asunto: Propuesta de SEO\n\nBuenos días, os enviamos una propuesta para mejorar vuestro posicionamiento."
+          });
+
+      // Chat 10: Email - Devolución
+      createConversation(contactRepository, conversationRepository, messageRepository, emInbox,
+          "Maria V.", null, "maria.v@gmail.com", null,
+          new String[]{
+              "INCOMING: Asunto: Devolución pedido #999\n\nQuiero devolver los zapatos, no me valen.",
+              "OUTGOING: Hola Maria, sin problema. Te adjunto la etiqueta de devolución."
           });
     };
   }
