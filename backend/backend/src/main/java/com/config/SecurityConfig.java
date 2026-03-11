@@ -25,6 +25,7 @@ public class SecurityConfig {
       .authorizeHttpRequests(auth -> auth
         .requestMatchers("/h2-console/**").permitAll()
         .requestMatchers("/webhooks/**").permitAll() // Webhooks must be public for Meta
+        .requestMatchers("/api/auth/**").permitAll() // Allow registration
         .requestMatchers("/dev/**").authenticated()
         .anyRequest().permitAll()
       )
@@ -44,12 +45,9 @@ public class SecurityConfig {
     return source;
   }
 
-  @Bean
-  public UserDetailsService users(PasswordEncoder encoder) {
-    return new InMemoryUserDetailsManager(
-      User.withUsername("admin").password(encoder.encode("admin")).roles("ADMIN").build()
-    );
-  }
+  // NOTA: Eliminamos el bean UserDetailsService en memoria porque ahora Spring Boot
+  // detectará automáticamente nuestro CustomUserDetailsService marcado con @Service.
+  // Si quisiéramos configurarlo explícitamente, podríamos hacerlo aquí, pero no es necesario.
 
   @Bean
   public PasswordEncoder passwordEncoder() {

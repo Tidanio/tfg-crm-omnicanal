@@ -16,11 +16,23 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDateTime;
 
+import com.repository.UserRepository;
+import com.entity.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 @Configuration
 public class StartupSeeder {
   @Bean
-  CommandLineRunner seedData(InboxRepository inboxRepository, ContactRepository contactRepository, ConversationRepository conversationRepository, MessageRepository messageRepository) {
+  CommandLineRunner seedData(InboxRepository inboxRepository, ContactRepository contactRepository, ConversationRepository conversationRepository, MessageRepository messageRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
     return args -> {
+      // 0. Crear usuario Admin por defecto
+      if (userRepository.findByUsername("admin").isEmpty()) {
+        User admin = new User();
+        admin.setUsername("admin");
+        admin.setPassword(passwordEncoder.encode("admin"));
+        admin.setRole("ADMIN");
+        userRepository.save(admin);
+      }
       // 1. Crear Inboxes
       Inbox waInbox = seedInbox(inboxRepository, ChannelType.WHATSAPP, "Dev WhatsApp Inbox");
       Inbox igInbox = seedInbox(inboxRepository, ChannelType.INSTAGRAM, "Dev Instagram Inbox");
