@@ -43,7 +43,7 @@ export default function Login({ onLoggedIn }: Props) {
       if (isRegister) {
         setError('Error al registrar: ' + (e.message || 'Inténtalo de nuevo'));
       } else {
-        setError('Credenciales inválidas');
+        setError('Error: Usuario o contraseña incorrectos. Por favor verifícalos.');
         localStorage.removeItem('auth');
       }
     } finally {
