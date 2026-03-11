@@ -1,4 +1,4 @@
-import { api } from './api';
+import { backendAPI as api } from './api';
 
 export type MessagePreview = {
   id: number;

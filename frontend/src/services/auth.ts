@@ -1,10 +1,8 @@
-import { API } from './api';
+import { backendAPI as api } from './api';
 
 export async function registerUser(username: string, password: string, email: string) {
-  const res = await API.post('/auth/register', { username, password, email });
-  if (!res.ok) {
-    throw new Error(await res.text());
-  }
+  // api.post lanzará un error con el mensaje del backend si falla (ej: "Username already exists")
+  await api.post('/auth/register', { username, password, email });
 }
 
 export function getUsername(): string | null {

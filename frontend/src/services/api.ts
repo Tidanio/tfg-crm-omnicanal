@@ -6,7 +6,7 @@ function authHeader() {
   return { Authorization: raw };
 }
 
-export const api = {
+export const backendAPI = {
   async get<T>(path: string) {
     const res = await fetch(`${BASE_URL}${path}`, { headers: { 'Accept': 'application/json', ...authHeader() } });
     if (!res.ok) {
