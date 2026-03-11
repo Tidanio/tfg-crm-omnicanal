@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Settings, Sun, Moon, Keyboard, FileText, Clock, LogOut } from 'lucide-react';
+import { Settings, Sun, Moon, Keyboard, FileText, Clock, LogOut, Radio } from 'lucide-react';
 
 type Props = {
   onClose: () => void;
   onOpenSettings: () => void;
+  onOpenApiSettings: () => void;
   onLogout: () => void;
   className?: string;
 };
 
-export default function UserQuickPanel({ onClose, onOpenSettings, onLogout, className }: Props) {
+export default function UserQuickPanel({ onClose, onOpenSettings, onOpenApiSettings, onLogout, className }: Props) {
   const [availability, setAvailability] = useState<'ONLINE' | 'OFFLINE'>('OFFLINE');
   const [autoOffline, setAutoOffline] = useState<boolean>(localStorage.getItem('autoOffline') === 'true');
   const [theme, setTheme] = useState<'light' | 'dark'>(localStorage.getItem('theme') === 'dark' ? 'dark' : 'light');
@@ -83,6 +84,16 @@ export default function UserQuickPanel({ onClose, onOpenSettings, onLogout, clas
         >
           <Settings size={16} />
           <span>Ajustes de la cuenta</span>
+        </button>
+        <button
+          className="w-full flex items-center gap-2 px-2 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 rounded text-gray-800 dark:text-gray-200"
+          onClick={() => {
+            onClose();
+            onOpenApiSettings();
+          }}
+        >
+          <Radio size={16} />
+          <span>Configurar APIs</span>
         </button>
         <button className="w-full flex items-center gap-2 px-2 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 rounded text-gray-800 dark:text-gray-200">
           <Keyboard size={16} />

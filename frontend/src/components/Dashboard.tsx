@@ -6,6 +6,7 @@ import { getInboxes, type Inbox } from '../services/inboxes';
 import { getLatestMessages, type MessagePreview } from '../services/messages';
 import AnalyticsModal from './AnalyticsModal';
 import AccountSettingsModal from './AccountSettingsModal';
+import ApiSettingsModal from './ApiSettingsModal';
 import { logout } from '../services/auth';
 import ContactsList from './ContactsList';
 import { Smartphone, Instagram, Mail } from 'lucide-react';
@@ -18,6 +19,7 @@ export default function Dashboard() {
   const [selectedConversationId, setSelectedConversationId] = useState<number | null>(null);
   const [openAnalytics, setOpenAnalytics] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
+  const [openApiSettings, setOpenApiSettings] = useState(false);
   const [sidebarView, setSidebarView] = useState<'inbox' | 'kanban' | 'conversations_all' | 'conversations_mentions' | 'conversations_unattended' | 'contacts_all'>('conversations_all');
   const [convOpen, setConvOpen] = useState(true);
   const [filterChannel, setFilterChannel] = useState<string | null>(null);
@@ -178,6 +180,7 @@ export default function Dashboard() {
                 <UserQuickPanel
                   onClose={() => setAccountOpen(false)}
                   onOpenSettings={() => setOpenSettings(true)}
+                  onOpenApiSettings={() => setOpenApiSettings(true)}
                   onLogout={() => {
                     logout();
                     window.location.reload();
@@ -220,6 +223,7 @@ export default function Dashboard() {
       </div>
       <AnalyticsModal open={openAnalytics} onClose={() => setOpenAnalytics(false)} />
       <AccountSettingsModal open={openSettings} onClose={() => setOpenSettings(false)} />
+      <ApiSettingsModal open={openApiSettings} onClose={() => setOpenApiSettings(false)} />
     </div>
   );
 }
