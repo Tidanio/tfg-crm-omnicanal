@@ -25,7 +25,7 @@ public class SecurityConfig {
       .authorizeHttpRequests(auth -> auth
         .requestMatchers("/h2-console/**").permitAll()
         .requestMatchers("/webhooks/**").permitAll() // Webhooks must be public for Meta
-        .requestMatchers("/api/auth/**").permitAll() // Allow registration
+        .requestMatchers("/auth/**").permitAll() // Allow registration
         .requestMatchers("/dev/**").authenticated()
         .anyRequest().permitAll()
       )
