@@ -1,4 +1,4 @@
-import { api } from './api';
+import { backendAPI as api } from './api';
 
 export type StatsResponse = {
   byChannel: Record<string, number>;
@@ -7,5 +7,6 @@ export type StatsResponse = {
 };
 
 export async function getStats(): Promise<StatsResponse> {
+  // Force update to fix Vercel build
   return api.get<StatsResponse>('/dev/stats');
 }
