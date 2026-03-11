@@ -13,4 +13,4 @@ ENV PORT=8080
 EXPOSE $PORT
 # FIX IMPORTANTE: Usamos "sh -c" para que la variable ${PORT} se lea correctamente.
 # También construimos la JDBC URL si estamos en Render (detectado por DB_HOST)
-ENTRYPOINT ["sh", "-c", "if [ -n \"$DB_HOST\" ]; then export DB_URL=jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}; fi && java -XX:MaxRAMPercentage=75.0 -Djava.net.preferIPv4Stack=true -Dserver.port=${PORT} -jar app.jar"]
+ENTRYPOINT ["sh", "-c", "if [ -n \"$DB_HOST\" ]; then export DB_URL=jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME} && export DB_DRIVER=org.postgresql.Driver && export DB_DIALECT=org.hibernate.dialect.PostgreSQLDialect; fi && java -XX:MaxRAMPercentage=75.0 -Djava.net.preferIPv4Stack=true -Dserver.port=${PORT} -jar app.jar"]
