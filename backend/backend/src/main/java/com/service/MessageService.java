@@ -17,17 +17,28 @@ public class MessageService {
   private final InboxRepository inboxRepo;
   private final MessageRepository messageRepo;
 
-  public MessageService(ConversationRepository c, InboxRepository i, MessageRepository m) {
+  private final WhatsappSender whatsappSender;
+
+  public MessageService(ConversationRepository c, InboxRepository i, MessageRepository m, WhatsappSender whatsappSender) {
     this.conversationRepo = c;
     this.inboxRepo = i;
     this.messageRepo = m;
+    this.whatsappSender = whatsappSender;
   }
 
   public Message send(Long conversationId, String content) {
     Conversation conv = conversationRepo.findById(conversationId).orElseThrow();
     Inbox inbox = inboxRepo.findByChannelType(conv.getChannel()).orElseThrow();
-    ChannelSender sender = resolveSender(inbox.getChannelType());
-    sender.send(content);
+    
+    // Enviar mensaje real a través del canal correspondiente
+    if (conv.getChannel() == com.entity.ChannelType.WHATSAPP) {
+        String destinationNumber = conv.getContact().getWhatsappId();
+        whatsappSender.sendTo(destinationNumber, content);
+    } else {
+        ChannelSender sender = resolveSender(inbox.getChannelType());
+        sender.send(content);
+    }
+
     Message msg = new Message();
     msg.setConversation(conv);
     msg.setInbox(inbox);
@@ -40,7 +51,7 @@ public class MessageService {
   private ChannelSender resolveSender(com.entity.ChannelType type) {
     switch (type) {
       case WHATSAPP:
-        return new WhatsappSender();
+        return whatsappSender;
       case EMAIL:
         return new EmailSender();
       default:
